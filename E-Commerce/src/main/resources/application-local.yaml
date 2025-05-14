@@ -1,0 +1,16 @@
+app:
+  jwt:
+    secret: verySecureJwtSecretKeyThatIsAtLeast32BytesLong12345678901234567890
+    access-token-ttl: 360000
+
+  cloudinary:
+    cloud-name: protu
+    api-key: 729185445769375
+    api-secret: U4cu6oQ9aR2vXPN7ZCthuxrzSAU
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/ecommerce-db
+    username: postgres
+    password: hazem_postgres25
+    driver-class-name: org.postgresql.Driver

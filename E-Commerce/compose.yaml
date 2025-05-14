@@ -1,0 +1,41 @@
+name: uni-ecommerce
+
+services:
+  ecommerce-app:
+    container_name: e-commerce-app-container
+    build:
+      context: ../E-Commerce
+      dockerfile: Dockerfile
+    image: uni/e-commerce:v1.0.0
+    ports:
+      - "8085:8085"
+    env_file:
+      - ./.env
+    depends_on:
+      ecommerce-db:
+        condition: service_healthy
+    volumes:
+      - maven-repo:/root/.m2
+
+  ecommerce-db:
+    image: postgres:latest
+    container_name: ecommerce-db-container
+    env_file:
+      - ./.env
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ecommerce-db
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    ports:
+      - "5434:5432"
+    volumes:
+      - postgres-ecommerce-db-data:/var/lib/postgresql/data
+
+volumes:
+  maven-repo:
+  postgres-ecommerce-db-data:
