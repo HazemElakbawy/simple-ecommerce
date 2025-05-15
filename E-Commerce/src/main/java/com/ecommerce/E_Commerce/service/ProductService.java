@@ -57,17 +57,17 @@ public class ProductService {
     Specification<Product> spec = Specification.where(null);
 
     if (categoryId != null) {
-      spec = spec.and((prod, _, cb) -> cb.equal(prod.get("category").get("id"), categoryId)
+      spec = spec.and((prod, val, cb) -> cb.equal(prod.get("category").get("id"), categoryId)
       );
     }
 
     if (size != null && !size.isBlank()) {
-      spec = spec.and((prod, _, cb) -> cb.equal(prod.get("size"), size)
+      spec = spec.and((prod, val, cb) -> cb.equal(prod.get("size"), size)
       );
     }
 
     if (color != null && !color.isBlank()) {
-      spec = spec.and((prod, _, cb) -> cb.equal(prod.get("color"), color)
+      spec = spec.and((prod, val, cb) -> cb.equal(prod.get("color"), color)
       );
     }
 

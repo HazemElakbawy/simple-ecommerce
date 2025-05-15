@@ -21,7 +21,7 @@ public class UserHelper {
   }
 
   public void checkIfUserExists(String identifier) {
-    findUserByIdentifier(identifier).ifPresent(_ -> {
+    findUserByIdentifier(identifier).ifPresent(id -> {
       throw new UserAlreadyExistsException(FailureMessages.USER_ALREADY_EXISTS.getMessage("email", identifier));
     });
   }
