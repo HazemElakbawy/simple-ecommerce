@@ -95,13 +95,21 @@ public class CartService {
     return buildCartDto(cart);
   }
 
+  public void clearCart(Long userId) {
+    Cart cart = cartRepository.findByUserIdWithItems(userId)
+        .orElseThrow(() -> new IllegalArgumentException("Cart not found"));
+    cart.getItems().clear();
+    cartRepository.save(cart);
+  }
+
   private CartResDto buildCartDto(Cart cart) {
     List<CartItemResDto> items = cart.getItems().stream()
         .map(item -> new CartItemResDto(
             item.getProduct().getId(),
             item.getProduct().getName(),
             item.getQuantity(),
-            item.getProduct().getPrice()
+            item.getProduct().getPrice(),
+            item.getProduct().getPictureUrl()
         ))
         .collect(Collectors.toList());
 

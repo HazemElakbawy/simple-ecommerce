@@ -79,4 +79,14 @@ public class CartController {
         SuccessMessages.REMOVE_CART_ITEM_MSG.message
     );
   }
+
+  @DeleteMapping("/items")
+  public ResponseEntity<Void> clearCart(
+      @RequestHeader("Authorization") String authHeader,
+      HttpServletRequest request) {
+
+    Long userId = getUserId(authHeader);
+    cartService.clearCart(userId);
+    return ResponseEntity.noContent().build();
+  }
 }

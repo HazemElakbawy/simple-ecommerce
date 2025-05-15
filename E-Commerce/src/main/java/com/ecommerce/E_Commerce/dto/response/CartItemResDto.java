@@ -6,5 +6,7 @@ public record CartItemResDto(
     Long id,
     String name,
     Integer quantity,
-    BigDecimal price) {
+    BigDecimal price,
+    String pictureUrl
+) {
 }
