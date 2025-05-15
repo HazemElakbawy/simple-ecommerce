@@ -17,17 +17,18 @@ public interface ProductMapper {
 
   @Mapping(target = "categoryId", source = "category.id")
   @Mapping(target = "categoryName", source = "category.name")
+  @Mapping(target = "price", source = "product.price")
   ProductResDto toProductDto(Product product);
 
   @Mapping(target = "id", ignore = true)
   @Mapping(target = "price", source = "req.price")
-  @Mapping(target = "category", expression = "java(fetchCategory(req.categoryId(), categoryRepo))")
+  @Mapping(target = "category", expression = "java(fetchCategory(req.categoryName(), categoryRepo))")
   Product toProductEntity(ProductReqDto req, @Context CategoryRepository categoryRepo);
 
   void updateProductFromDto(ProductReqDto req, @MappingTarget Product entity, @Context CategoryRepository catRepo);
 
-  default Category fetchCategory(Long categoryId, @Context CategoryRepository categoryRepo) {
-    return categoryRepo.findById(categoryId)
-        .orElseThrow(() -> new EntityNotFoundException("Category not found: " + categoryId));
+  default Category fetchCategory(String categoryName, @Context CategoryRepository categoryRepo) {
+    return categoryRepo.findByName(categoryName)
+        .orElseThrow(() -> new EntityNotFoundException("Category not found: " + categoryName));
   }
 }

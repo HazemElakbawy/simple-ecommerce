@@ -22,8 +22,8 @@ public record ProductReqDto(
     @Size(max = 50, message = "Color must not exceed 50 characters")
     String color,
 
-    @NotNull(message = "Category ID is required")
-    Long categoryId,
+    @NotNull(message = "Category name is required")
+    String categoryName,
 
     @NotNull(message = "Price is required")
     Double price

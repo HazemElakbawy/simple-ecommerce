@@ -17,6 +17,10 @@ spring:
     properties.hibernate.format_sql: false
     open-in-view: false
 
+  sql.init:
+    mode: always
+    schema-locations: classpath:scripts/init.sql
+
   servlet:
     multipart:
       max-file-size: 5MB

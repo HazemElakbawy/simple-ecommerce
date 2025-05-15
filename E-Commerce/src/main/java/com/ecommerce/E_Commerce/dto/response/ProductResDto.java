@@ -7,6 +7,7 @@ public record ProductResDto(
     String pictureUrl,
     String size,
     String color,
+    String price,
     Long categoryId,
     String categoryName
 ) {
